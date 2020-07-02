@@ -1,9 +1,9 @@
-package gui;
+package game;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+class MainFrame extends JFrame {
 
     public MainFrame(){
         super.setTitle("15 Piece Sliding Puzzle Game");

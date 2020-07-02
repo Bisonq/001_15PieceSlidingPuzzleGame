@@ -1,9 +1,9 @@
-package engine;
+package game;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MyPuzzel extends JButton {
+class MyPuzzel extends JButton {
 
     private int puzzelId;
     private static int id = 1;

@@ -1,6 +1,4 @@
-package engine;
-
-import gui.MainFrame;
+package game;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,10 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-public class Engine implements ActionListener {
+class Engine implements ActionListener {
     private MainFrame frame;
     private MyPuzzel[] puzzleTab;
     private MyPuzzel[][] puzzleTab2D;
+    private boolean logGameMove = false;
 
     public Engine(MainFrame frame){
         this.frame = frame;
@@ -113,6 +112,10 @@ public class Engine implements ActionListener {
         return true;
     }
 
+    public void setLogGameMove(boolean logGameMove) {
+        this.logGameMove = logGameMove;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         MyPuzzel puzzel = (MyPuzzel) e.getSource();
@@ -123,7 +126,8 @@ public class Engine implements ActionListener {
 
         setPuzzelNeighborsInTable(puzzel, x, y);
 
-        logPuzzelLocationInTable(puzzel);
+        if(this.logGameMove)
+            logPuzzelLocationInTable(puzzel);
 
         int pomId = puzzel.getPuzzelId();
         String pomText = puzzel.getText();
