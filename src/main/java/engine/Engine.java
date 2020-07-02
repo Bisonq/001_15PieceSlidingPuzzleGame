@@ -71,6 +71,26 @@ public class Engine implements ActionListener {
         return null;
     }
 
+    private void setPuzzelNeighborsInTable(MyPuzzel puzzel, int x, int y) {
+        if(x + 1 <= this.puzzleTab2D.length-1)
+            puzzel.setDown(this.puzzleTab2D[x + 1][y].getText());
+        if(x -1 >= 0)
+            puzzel.setUp(this.puzzleTab2D[x-1][y].getText());
+        if(y + 1 <= this.puzzleTab2D[0].length-1)
+            puzzel.setRight(this.puzzleTab2D[x][y+1].getText());
+        if(y -1 >= 0)
+            puzzel.setLeft(this.puzzleTab2D[x][y-1].getText());
+    }
+
+    private void logPuzzelLocationInTable(MyPuzzel puzzel) {
+        System.out.println("ID: " + puzzel.getPuzzelId());
+        System.out.println("Up: " + puzzel.getUp());
+        System.out.println("Down: " + puzzel.getDown());
+        System.out.println("Left: " + puzzel.getLeft());
+        System.out.println("Right: " + puzzel.getRight());
+        System.out.println();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         MyPuzzel puzzel = (MyPuzzel) e.getSource();
@@ -79,23 +99,10 @@ public class Engine implements ActionListener {
         int x = (int) pom.getX();
         int y = (int) pom .getY();
 
-        if(x + 1 <= this.puzzleTab2D.length-1)
-            puzzel.setDown(this.puzzleTab2D[x + 1][y]);
-        if(x -1 >= 0)
-            puzzel.setUp(this.puzzleTab2D[x-1][y]);
-        if(y + 1 <= this.puzzleTab2D[0].length-1)
-            puzzel.setRight(this.puzzleTab2D[x][y+1]);
-        if(y -1 >= 0)
-            puzzel.setLeft(this.puzzleTab2D[x][y-1]);
+        setPuzzelNeighborsInTable(puzzel, x, y);
 
-        if(puzzel.getUp() != null)
-            System.out.println("up:"  +puzzel.getUp().getPuzzelId());
-        if(puzzel.getDown() != null)
-            System.out.println("down:"  +puzzel.getDown().getPuzzelId());
-        if(puzzel.getLeft() != null)
-            System.out.println("left:"  +puzzel.getLeft().getPuzzelId());
-        if(puzzel.getRight() != null)
-            System.out.println("right:"  +puzzel.getRight().getPuzzelId());
-        System.out.println();
+        logPuzzelLocationInTable(puzzel);
+
     }
+
 }

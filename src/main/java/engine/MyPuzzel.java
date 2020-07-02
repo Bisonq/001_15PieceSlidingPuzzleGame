@@ -8,10 +8,10 @@ public class MyPuzzel extends JButton {
     private int puzzelId;
     private static int id = 1;
 
-    private MyPuzzel up;
-    private MyPuzzel down;
-    private MyPuzzel left;
-    private MyPuzzel right;
+    private String up;
+    private String down;
+    private String left;
+    private String right;
 
     public MyPuzzel() {
         super();
@@ -28,35 +28,35 @@ public class MyPuzzel extends JButton {
         return puzzelId;
     }
 
-    public MyPuzzel getUp() {
+    public String getUp() {
         return up;
     }
 
-    public MyPuzzel getDown() {
+    public String getDown() {
         return down;
     }
 
-    public MyPuzzel getLeft() {
+    public String getLeft() {
         return left;
     }
 
-    public MyPuzzel getRight() {
+    public String getRight() {
         return right;
     }
 
-    public void setUp(MyPuzzel up) {
+    public void setUp(String up) {
         this.up = up;
     }
 
-    public void setDown(MyPuzzel down) {
+    public void setDown(String down) {
         this.down = down;
     }
 
-    public void setLeft(MyPuzzel left) {
+    public void setLeft(String left) {
         this.left = left;
     }
 
-    public void setRight(MyPuzzel right) {
+    public void setRight(String right) {
         this.right = right;
     }
 }
