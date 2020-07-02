@@ -2,6 +2,7 @@ package engine;
 
 import gui.MainFrame;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +11,6 @@ import java.util.*;
 public class Engine implements ActionListener {
     private MainFrame frame;
     private MyPuzzel[] puzzleTab;
-    private MyPuzzel blankPuzzel;
     private MyPuzzel[][] puzzleTab2D;
 
     public Engine(MainFrame frame){
@@ -18,7 +18,6 @@ public class Engine implements ActionListener {
         this.puzzleTab = createTableOfPuzzle();
         shufflePuzzle(this.puzzleTab);
         addPuzzleIntoFrame(this.frame, this.puzzleTab);
-        this.blankPuzzel = this.puzzleTab[puzzleTab.length-1];
         addActionsInPuzzle(this.puzzleTab);
         this.puzzleTab2D = transformSinglePuzzleTabInto2DPuzzleTab(this.puzzleTab);
     }
@@ -91,6 +90,29 @@ public class Engine implements ActionListener {
         System.out.println();
     }
 
+    private MyPuzzel findPuzzelIn2DTabByText(String text, MyPuzzel[][] tab){
+        for(int i = 0 ; i < tab.length ; i++)
+            for(int j = 0 ; j < tab[i].length ; j++)
+                if(tab[i][j].getText().equals(text))
+                    return tab[i][j];
+        return null;
+    }
+
+    private void swapPuzzle(MyPuzzel puzzel, int pomId, String pomText) {
+        MyPuzzel downPuzzel = findPuzzelIn2DTabByText("", this.puzzleTab2D);
+        puzzel.setText("");
+        puzzel.setPuzzelId(downPuzzel.getPuzzelId());
+        downPuzzel.setPuzzelId(pomId);
+        downPuzzel.setText(pomText);
+    }
+
+    private boolean checkTheResult(MyPuzzel[] tab){
+        for(int i = 0 ; i < tab.length-1 ; i++)
+            if(tab[i].getPuzzelId() > tab[i+1].getPuzzelId())
+                return false;
+        return true;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         MyPuzzel puzzel = (MyPuzzel) e.getSource();
@@ -103,6 +125,20 @@ public class Engine implements ActionListener {
 
         logPuzzelLocationInTable(puzzel);
 
-    }
+        int pomId = puzzel.getPuzzelId();
+        String pomText = puzzel.getText();
 
+        if(puzzel.getDown() != null && puzzel.getDown().equals("")){
+            swapPuzzle(puzzel, pomId, pomText);
+        }else if(puzzel.getUp() != null && puzzel.getUp().equals("")){
+            swapPuzzle(puzzel, pomId, pomText);
+        }else if(puzzel.getLeft() != null && puzzel.getLeft().equals("")){
+            swapPuzzle(puzzel, pomId, pomText);
+        }else if(puzzel.getRight() != null && puzzel.getRight().equals("")){
+            swapPuzzle(puzzel, pomId, pomText);
+        }
+        if(checkTheResult(this.puzzleTab)) {
+            JOptionPane.showMessageDialog(frame, "Win!\nGood Job :)");
+        }
+    }
 }

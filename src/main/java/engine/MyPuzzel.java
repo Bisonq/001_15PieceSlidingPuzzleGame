@@ -28,6 +28,10 @@ public class MyPuzzel extends JButton {
         return puzzelId;
     }
 
+    public void setPuzzelId(int puzzelId) {
+        this.puzzelId = puzzelId;
+    }
+
     public String getUp() {
         return up;
     }
